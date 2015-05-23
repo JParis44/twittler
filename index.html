@@ -11,7 +11,7 @@
 			
 			<div class="header-wrapper">
 			<div class="header">
-				<h1>Twittler</h1>
+				<div class="title">Twittler</div>
 			</div>
 			</div>
 			
@@ -34,37 +34,56 @@
 				//var $body = $('body');
 				//$body.html('');
 				var $tweetBox = $('#tweet-box');
+				var $users = $('#user-list');
+				var tweetBoxUser;
 
 				var updateTweetBox = function () {
-
-					$tweetBox.html('');
-
-					var index = streams.home.length - 1;
+					var stream;
+					var title;
 					
+					if (tweetBoxUser === undefined) {
+						stream = streams.home;
+						title = "Showing all followed Twits";
+					} else {
+						stream = streams.users[tweetBoxUser];
+						title = "Showing " + tweetBoxUser + "'s stream";
+					}
+
+					$tweetBox.html('<div class="box-header">' + title + '</div>');
+
+					var index = stream.length - 1;
 					while(index >= 0){
-						var tweet = streams.home[index];
+						var tweet = stream[index];
 						var $tweet = $('<div class="tweet"><p class="text"></p><p class="timestamp"></p></div>');
 						$tweet.children().first().text('@' + tweet.user + ': ' + tweet.message);
 						$tweet.children().last().text(tweet.created_at.toLocaleTimeString() + ' | ' + tweet.created_at.toLocaleDateString());
 						$tweet.appendTo($tweetBox);
 						index -= 1;
 					}
-
 					setTimeout(updateTweetBox, 2000);
 				};
 
 				var updateUserList = function () {
 					
 					users.forEach(function (user) {
-						var $user = $('<div class= "user" data-user=""></div>');
+						var $user = $('<div class="user" data-user=""></div>');
 						$user.data(user);
 						$user.text('@' + user);
-						$user.appendTo('#user-list');
+						$user.appendTo($users);
 					});
 				};
 
 				updateUserList();
 				updateTweetBox();
+
+				$('.user').on('mouseenter', function(){
+					$(this).toggleClass('highlight');
+				}).on('mouseleave',  function(){
+					$(this).toggleClass('highlight');
+				}).on('click', function(){
+					$('.user').removeClass('selected');
+					$(this).addClass('selected');
+				});
 
 			});
 

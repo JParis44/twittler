@@ -8,10 +8,11 @@ p {
   padding: 2px;
 }
 
-h1 {
-  font-size: 4em;
+.title {
+  font-size: 5em;
   font-weight: bold;
   text-align: center;
+  display: block;
 }
 
 .main-wrapper {
@@ -26,7 +27,7 @@ h1 {
 }
 
 .header {
-  height: 100px;
+  height: 80px;
   background: #FF0000;
   border-radius: 10px;
   border: 2px solid #FF2D2D;
@@ -54,8 +55,30 @@ h1 {
 
 .left-column {
   height: 200px;
-  background: #FF8A8A;
+  background: #FFD6D6;
   border-radius: 10px;
-  border: 1px solid #eb7676;
+  border: 2px solid #FF0000;
   margin: 5px;
+}
+
+.user {
+  font-size: 1.1em;
+  font-weight: bold;
+  margin: 2px;
+  padding: 2px;
+  border-radius: 5px;
+}
+
+.highlight {
+  background: #FFFFFF;
+}
+
+.selected {
+  background: #FFFFFF;
+}
+
+.box-header {
+  font-size: 1.2em;
+  margin: 3px;
+  padding-left: 15px;
 }
