@@ -35,18 +35,18 @@
 				//$body.html('');
 				var $tweetBox = $('#tweet-box');
 				var $users = $('#user-list');
-				var tweetBoxUser;
+				var tweetBoxUser = 'all';
 
 				var updateTweetBox = function () {
 					var stream;
 					var title;
 					
-					if (tweetBoxUser === undefined) {
+					if (tweetBoxUser === 'all') {
 						stream = streams.home;
 						title = "Showing all followed Twits";
 					} else {
 						stream = streams.users[tweetBoxUser];
-						title = "Showing " + tweetBoxUser + "'s stream";
+						title = "Showing @" + tweetBoxUser + "'s stream";
 					}
 
 					$tweetBox.html('<div class="box-header">' + title + '</div>');
@@ -64,10 +64,10 @@
 				};
 
 				var updateUserList = function () {
-					
+					$users.html('<div class="user selected" data-user="all">Show All</div>');
 					users.forEach(function (user) {
 						var $user = $('<div class="user" data-user=""></div>');
-						$user.data(user);
+						$user.data('user', user);
 						$user.text('@' + user);
 						$user.appendTo($users);
 					});
@@ -83,6 +83,8 @@
 				}).on('click', function(){
 					$('.user').removeClass('selected');
 					$(this).addClass('selected');
+					tweetBoxUser = $(this).data('user');
+					updateTweetBox();
 				});
 
 			});

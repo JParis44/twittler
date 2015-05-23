@@ -1,11 +1,11 @@
 body {
   background: #F4F4F4;
   font-family: Verdana, Arial, Helvetica, sans-serif;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 p {
-  padding: 2px;
+  padding-left: 4px;
 }
 
 .title {
@@ -80,5 +80,13 @@ p {
 .box-header {
   font-size: 1.2em;
   margin: 3px;
-  padding-left: 15px;
+  text-align: center;
+}
+
+.tweet {
+  border-top: 1px solid #FF0000;
+}
+
+.timestamp {
+  font-size: .8em;
 }
