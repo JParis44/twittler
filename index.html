@@ -5,6 +5,7 @@
 		<link rel="stylesheet" type="text/css" href="main.css">
 		<script src="jquery.js"></script>
 		<script src="data_generator.js"></script>
+		<script src="moment.min.js"></script>
 	</head>
 	<body>
 		<div class="main-wrapper">
@@ -54,9 +55,11 @@
 					var index = stream.length - 1;
 					while(index >= 0){
 						var tweet = stream[index];
-						var $tweet = $('<div class="tweet"><p class="text"></p><p class="timestamp"></p></div>');
-						$tweet.children().first().text('@' + tweet.user + ': ' + tweet.message);
-						$tweet.children().last().text(tweet.created_at.toLocaleTimeString() + ' | ' + tweet.created_at.toLocaleDateString());
+						var timestamp = tweet.created_at.toLocaleTimeString() + ' | ' + tweet.created_at.toLocaleDateString();
+						var humanize = moment(tweet.created_at).fromNow();
+						var $tweet = $('<div class="tweet"></div>');
+						$('<p class="text">@' + tweet.user + ': ' + tweet.message + '</p>').appendTo($tweet);
+						$('<p class="timestamp">' + timestamp + '<span class="humanize">' + humanize + '</p>').appendTo($tweet);
 						$tweet.appendTo($tweetBox);
 						index -= 1;
 					}
