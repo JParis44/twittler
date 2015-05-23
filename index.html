@@ -20,6 +20,7 @@
 			<div class="left-column">
 				<div id="user-list"></div>
 			</div>
+				<div class="tweet-button"><div>Send a tweet!</div></div>
 			</div>
 
 			<div class="content-wrapper">
@@ -29,11 +30,17 @@
 			</div>
 		
 		</div>
+
+		<div class="input-box">
+			<p>Enter your Username and Message!</p>
+			Username:<input type="text" id="user-name"><br>
+			<textarea id="message" rows="12" cols="55" placeholder="Type your message here..." maxlength="141"></textarea><br>
+			Characters remaining:<span class="chars">141</span><br><br>
+			<span class="submit">Submit!</span><span class="cancel">Cancel</span>
+		</div>
 		<script>
 
 			$(document).ready(function(){
-				//var $body = $('body');
-				//$body.html('');
 				var $tweetBox = $('#tweet-box');
 				var $users = $('#user-list');
 				var tweetBoxUser = 'all';
@@ -66,6 +73,20 @@
 					setTimeout(updateTweetBox, 2000);
 				};
 
+				// Event handlers for user list
+				var setUserListEvents = function () {
+					$('.user').on('mouseenter', function(){
+						$(this).toggleClass('highlight');
+					}).on('mouseleave',  function(){
+						$(this).toggleClass('highlight');
+					}).on('click', function(){
+						$('.user').removeClass('selected');
+						$(this).addClass('selected');
+						tweetBoxUser = $(this).data('user');
+						updateTweetBox();
+					});
+				};
+
 				var updateUserList = function () {
 					$users.html('<div class="user selected" data-user="all">Show All</div>');
 					users.forEach(function (user) {
@@ -74,21 +95,57 @@
 						$user.text('@' + user);
 						$user.appendTo($users);
 					});
+					setUserListEvents();
 				};
 
 				updateUserList();
 				updateTweetBox();
 
-				$('.user').on('mouseenter', function(){
+				var calcChars = function(){
+					var chars = $('#message').val().length;
+					$('.chars').text(141 - chars);
+				};
+
+				
+
+				// Event handlers for tweet button
+				$('.tweet-button').on('mouseenter', function(){
 					$(this).toggleClass('highlight');
 				}).on('mouseleave',  function(){
 					$(this).toggleClass('highlight');
 				}).on('click', function(){
-					$('.user').removeClass('selected');
-					$(this).addClass('selected');
-					tweetBoxUser = $(this).data('user');
-					updateTweetBox();
+					$('#user-name').val('');
+					visitor = '';
+					$('#message').val('');
+					$('.chars').text('141');
+					$('.input-box').slideDown();
 				});
+
+				// Event handlers for input box:
+				// Submit
+				$('.submit').on('mouseenter', function(){
+					$(this).toggleClass('highlight');
+				}).on('mouseleave',  function(){
+					$(this).toggleClass('highlight');
+				}).on('click', function(){
+					visitor = $('#user-name').val();
+					writeTweet($('#message').val());
+					$('.input-box').slideUp();
+					updateTweetBox();
+					updateUserList();
+				});
+
+				// Cancel
+				$('.cancel').on('mouseenter', function(){
+					$(this).toggleClass('highlight');
+				}).on('mouseleave',  function(){
+					$(this).toggleClass('highlight');
+				}).on('click', function(){
+					$('.input-box').slideUp();
+				});
+
+				// textarea
+				$('#message').on('keyup', calcChars);
 
 			});
 
