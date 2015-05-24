@@ -6,6 +6,7 @@ body {
 }
 
 .input-box {
+  cursor: default;
   display: none;
   position: fixed;
   z-index: 99;
@@ -34,6 +35,7 @@ body {
 }
 
 .submit, .cancel {
+  cursor: pointer;
   padding: 4px;
   margin: 5px;
   border: 2px solid black;
@@ -58,6 +60,7 @@ body {
 }
 
 .header {
+  cursor: default;
   height: 80px;
   background: #FF0000;
   border-radius: 10px;
@@ -93,6 +96,7 @@ body {
 }
 
 .user {
+  cursor: pointer;
   font-size: 1.1em;
   font-weight: bold;
   margin: 2px;
@@ -101,6 +105,7 @@ body {
 }
 
 .tweet-button {
+  cursor: pointer;
   height: 50px;
   background: #FF0000;
   border-radius: 10px;
